@@ -2,21 +2,21 @@
 <p>Steps to create similar project:</p>
 
 <p>
-1- Install NestJs CLI globally
-npm install -g @nestjs/cli
+1- Install NestJs CLI globally<br/>
+npm install -g @nestjs/cli<br/>
 
-2- Create new project (npm, pnpm or yarn)
-nest new supabase-backend
-npm install dotenv class-validator class-transformer
+2- Create new project (npm, pnpm or yarn)<br/>
+nest new supabase-backend<br/>
+npm install dotenv class-v<br/>alidator class-transformer<br/>
 
-3- Start dev server
-npm run start:dev
+3- Start dev server<br/>
+npm run start:dev<br/>
 
-4- install supabase JS client
-npm install @supabase/supabase-js
+4- install supabase JS client<br/>
+npm install @supabase/supabase-js<br/>
 
-5- Create supabase project
-extract API KEY and PROJECT URL and place them in the .env
+5- Create supabase project<br/>
+extract API KEY and PROJECT URL and place them in the .env<br/>
 
 
 
