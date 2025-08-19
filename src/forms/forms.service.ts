@@ -1,14 +1,31 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { supabase } from '../supabase/supabase.client';
 import { CreateFormDto } from './dto/create-form.dto';
 import { UpdateFormDto } from './dto/update-form.dto';
 
 @Injectable()
 export class FormsService {
-  async create(createFormDto: CreateFormDto) {
+  private readonly bucket = 'forms_images';
+
+  async create(createFormDto: CreateFormDto, file?: Express.Multer.File) {
+    let image: string | null = null;
+
+    if (file) {
+      const path = `${createFormDto.user_uuid}/-${file.originalname}`;
+      const { error } = await supabase.storage
+        .from(this.bucket)
+        .upload(path, file.buffer, {
+          contentType: file.mimetype,
+          upsert: true,
+        });
+
+      if (error) throw new BadRequestException(`Image upload failed: ${error.message}`);
+      image = path;
+    }
+
     const { data, error } = await supabase
       .from('forms')
-      .insert([createFormDto])
+      .insert(createFormDto)
       .select()
       .single();
 
@@ -37,10 +54,26 @@ export class FormsService {
     return data;
   }
 
-  async update(id: number, updateFormDto: UpdateFormDto) {
+  async update(id: number, updateFormDto: UpdateFormDto, file?: Express.Multer.File) {
+    let image: string | undefined;
+
+    if (file) {
+       const path = `${updateFormDto.user_uuid}/-${file.originalname}`;
+
+      const { error } = await supabase.storage
+        .from(this.bucket)
+        .upload(path, file.buffer, {
+          contentType: file.mimetype,
+          upsert: true,
+        });
+
+      if (error) throw new BadRequestException(`Image upload failed: ${error.message}`);
+      image = path;
+    }
+
     const { data, error } = await supabase
       .from('forms')
-      .update(updateFormDto)
+      .update({ ...updateFormDto, ...(image ? { image } : {}) })
       .eq('id', id)
       .select()
       .single();

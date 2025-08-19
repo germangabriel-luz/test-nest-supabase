@@ -7,7 +7,7 @@ npm install -g @nestjs/cli<br/>
 
 2- Create new project (npm, pnpm or yarn)<br/>
 nest new supabase-backend<br/>
-npm install dotenv class-v<br/>alidator class-transformer<br/>
+npm install dotenv class-validator class-transformer
 
 3- Start dev server<br/>
 npm run start:dev<br/>
