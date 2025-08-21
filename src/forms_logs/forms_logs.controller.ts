@@ -18,6 +18,18 @@ export class FormsLogsController {
     return this.formsLogsService.findOne(id);
   }
 
+  @Get('user/:id')
+  @UseGuards(JwtAuthGuard)
+  findUserLogs(@Param('id') id: string) {
+    return this.formsLogsService.findUserLogs(id);
+  }
+
+  @Get('form/:id')
+  @UseGuards(JwtAuthGuard)
+  findFormLogs(@Param('id') id: number) {
+    return this.formsLogsService.findFormLogs(id);
+  }
+
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
   remove(@Param('id') id: string) {
