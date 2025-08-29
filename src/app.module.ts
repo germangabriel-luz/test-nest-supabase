@@ -10,4 +10,4 @@ import { FormsLogsModule } from './forms_logs/forms_logs.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

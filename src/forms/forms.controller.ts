@@ -10,12 +10,13 @@ export class FormsController {
   constructor(private readonly formsService: FormsService) { }
 
   @Post()
-  @UseInterceptors(FileInterceptor('file'))
+  @UseInterceptors(FileInterceptor('image'))
   create(
     @Body() createFormDto: CreateFormDto,
-    @UploadedFile() file?: Express.Multer.File,
+    @UploadedFile() image?: Express.Multer.File,
   ) {
-    return this.formsService.create(createFormDto, file);
+    console.log(image)
+    return this.formsService.create(createFormDto, image);
   }
 
   @Get()

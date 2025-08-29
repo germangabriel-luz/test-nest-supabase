@@ -7,7 +7,7 @@ import { UpdateFormDto } from './dto/update-form.dto';
 export class FormsService {
   private readonly bucket = 'forms_images';
 
-  async create(createFormDto: CreateFormDto, file?: Express.Multer.File) {
+  async create(createFormDto: CreateFormDto, image?: Express.Multer.File) {
     /* insert without image */
     const { data: form, error: insertError } = await supabase
       .from('forms')
@@ -19,14 +19,15 @@ export class FormsService {
       throw new BadRequestException(insertError?.message || 'Failed to create form');
     }
 
-    /* if no file return */
-    if (!file) return form;
+    /* if no image return */
+    if(!image) console.log(image)
+    if (!image) return form;
 
-    const path = `${createFormDto.user_uuid}/${form.id}-${file.originalname}`;
+    const path = `${createFormDto.user_uuid}/${form.id}-${image.originalname}`;
     const { error: uploadError } = await supabase.storage
       .from(this.bucket)
-      .upload(path, file.buffer, {
-        contentType: file.mimetype,
+      .upload(path, image.buffer, {
+        contentType: image.mimetype,
         upsert: true,
       });
 
