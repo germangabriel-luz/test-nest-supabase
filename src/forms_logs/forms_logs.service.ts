@@ -1,5 +1,5 @@
 import { Injectable, BadRequestException } from '@nestjs/common';
-import { supabase } from 'src/supabase/supabase.client';
+import { supabase } from '../supabase/supabase.client';
 import { FormsLog } from './entities/forms_log.entity';
 
 @Injectable()

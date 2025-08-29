@@ -1,6 +1,6 @@
 import { Controller, Get, Param, Delete, UseGuards } from '@nestjs/common';
 import { FormsLogsService } from './forms_logs.service';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('forms_logs')
 export class FormsLogsController {
